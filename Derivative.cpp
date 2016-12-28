@@ -30,7 +30,7 @@ string cops(int l,int r)
 void priorGet()
 {
     int x = 0;
-    for(int i = 0; i<s.size(); i++)
+    for(int i = 5; i<s.size()-5; i++)
     {
         prior[i] = 1e9;
         if(s[i] == '+' || s[i] == '-')  //+-
@@ -182,10 +182,12 @@ int main()
         if(c != ' ')
             s.push_back(c);
     }
-    prior.assign(s.size()+5,0);
+    s = "     " + s + "     ";
+    prior.assign(s.size(),0);
+
     priorGet();
 
-    cout<<prois(0,s.size()-1);
+    cout<<prois(5,s.size()-6);
 
 
     return 0;
