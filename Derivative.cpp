@@ -140,13 +140,21 @@ string Factar(int l,int r, int Pr)
     {
         return "-1/(sin" + cop(Pr+3,r) + ")**2" + "*" +prois(Pr+4,r-1);
     }
-    if(s[Pr] == 'a' && s[Pr+3] =='s')
+    if(s[Pr] == 'a' && s[Pr+3] =='s') //arcsin
     {
         return "1/(1-" + cop(Pr+6,r) + "**2)**0.5" + "*" +prois(Pr+7,r-1);
     }
-    if(s[Pr] == 'a' && s[Pr+3] =='t')
+    if(s[Pr] == 'a' && s[Pr+3] =='t') //arctg
     {
         return "1/(1+" + cop(Pr+5,r) + "**2)" + "*" +prois(Pr+6,r-1);
+    }
+    if(s[Pr] == 'a' && s[Pr+3]=='c' && s[Pr+4] == 'o') //arccos
+    {
+        return "-1/(1-" + cop(Pr+6,r) + "**2)**0.5" + "*" +prois(Pr+7,r-1);
+    }
+    if(s[Pr] == 'a' && s[Pr+3] == 'c' && s[Pr+4] == 't') //arcctg
+    {
+        return "-1/(1+" + cop(Pr+6,r) + "**2)" + "*" +prois(Pr+7,r-1);
     }
 
 }
