@@ -12,7 +12,9 @@ string Factar(int,int,int);
 string prois(int,int);
 string cop(int,int);
 bool Trivial(int,int);
-
+bool ConstDetect(int l,int r);
+string Multiply(string s1,string s2);
+string Multiply(string s1,string s2,string s3);
 
 string cop(int l,int r)
 {
@@ -108,7 +110,7 @@ string Factar(int l,int r, int Pr)
 
     if(s[Pr] == '*' && s[Pr+1] == '*') // **
     {
-        return cops(l,r) + "*(" + prois(Pr+2,r) + "*ln" + cops(l,Pr-1) + "+" + cops(Pr+2,r) + "*1/" + cops(l,Pr-1) + "*" + prois(l,Pr-1) + ")";
+        return Multiply(cops(l,r),"(" + Multiply(prois(Pr+2,r) , "ln" + cops(l,Pr-1)) + "+" + Multiply(cops(Pr+2,r) ,"1/" + cops(l,Pr-1) , prois(l,Pr-1)) + ")");
     }
     else
     if(s[Pr] == '*' && s[Pr-1] != '*') // *
@@ -171,24 +173,47 @@ bool Trivial(int l , int r)
 }
 
 
+bool ConstDetect(int l,int r)
+{
+    for(int i = l; i<=r; i++)
+        if(s[i] == 'x') return false;
+
+    return true;
+}
+
+
+string Multiply(string s1,string s2)
+{
+    if(s1 == "0" || s1 == "(0)" || s2 == "0" || s2 == "(0)" ) return "0";
+
+    return s1 + "*" + s2;
+}
+string Multiply(string s1,string s2,string s3)
+{
+    return Multiply(Multiply(s1,s2),s3);
+}
+
+
 int main()
 {
     freopen("deriv.in","r",stdin);
     freopen("deriv.out","w",stdout);
-
-    char c;
-    while(scanf("%c",&c) == 1 && c!='\n' )
+    string t;
+    while(!cin.eof())
     {
-        if(c != ' ')
-            s.push_back(c);
+
+        getline(cin,t);
+        s.clear();
+        for(int i = 0; i<t.size(); i++)
+            if(t[i] != ' ') s.push_back(t[i]);
+
+        s = "     " + s + "     ";
+        prior.assign(s.size(),0);
+
+        priorGet();
+
+        cout<<prois(5,s.size()-6)<<"\n";
+
     }
-    s = "     " + s + "     ";
-    prior.assign(s.size(),0);
-
-    priorGet();
-
-    cout<<prois(5,s.size()-6);
-
-
     return 0;
 }
